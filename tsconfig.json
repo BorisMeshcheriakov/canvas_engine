@@ -18,7 +18,9 @@
     "forceConsistentCasingInFileNames": true,
     "typeRoots": ["node_modules/@types", "src/@types"],
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@components": ["src/components"],
+      "@hooks": ["src/hooks"]
     }
   },
   "exclude": ["node_modules", "public", "webpack", "config", "coverage"]
