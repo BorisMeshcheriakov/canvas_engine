@@ -1,12 +1,12 @@
-import Ball from "./ball";
+import AnimationFrame from "./fps";
+import Scene from "./scene";
 
 class App {
   private canvas: HTMLCanvasElement;
   private context: CanvasRenderingContext2D;
-  private frameCount: number;
   public animationFrameId: number;
-  private running: boolean = true;
-  private ball: Ball;
+  private scene;
+  private animate;
 
   constructor(appCanvas: HTMLCanvasElement) {
     let canvas = appCanvas;
@@ -14,43 +14,13 @@ class App {
 
     this.canvas = canvas;
     this.context = context;
-    this.frameCount = 0;
     this.animationFrameId = 0;
-    this.ball = new Ball(this.context);
-  }
-
-  private draw(): void {
-    this.context.fillRect(
-      0,
-      0,
-      this.context.canvas.width,
-      this.context.canvas.height
-    );
-    this.ball.draw();
-
-    this.ball.vy *= 0.99;
-    this.ball.vy += 0.25;
-
-    if (
-      this.ball.y + this.ball.vy > this.context.canvas.height ||
-      this.ball.y + this.ball.vy < 0
-    ) {
-      this.ball.vy = -this.ball.vy;
-    }
-    if (
-      this.ball.x + this.ball.vx > this.context.canvas.width ||
-      this.ball.x + this.ball.vx < 0
-    ) {
-      this.ball.vx = -this.ball.vx;
-    }
-
-    this.ball.x += this.ball.vx;
-    this.ball.y += this.ball.vy;
+    this.scene = new Scene(this.context);
+    this.animate = new AnimationFrame(this.context, 60, this.draw);
   }
 
   clear() {
-    this.context.fillStyle = "rgba(255, 255, 255, 0.3)";
-    this.context.fillRect(
+    this.context.clearRect(
       0,
       0,
       this.context.canvas.width,
@@ -58,15 +28,19 @@ class App {
     );
   }
 
+  private draw = (): void => {
+    this.clear();
+    this.scene.draw();
+  };
+
   public render = () => {
-    if (!this.running) return;
-    this.frameCount++;
-    this.draw();
-    this.animationFrameId = window.requestAnimationFrame(this.render);
+    this.canvas.addEventListener("click", this.scene.onClick);
+    this.canvas.addEventListener("mousemove", this.scene.onMove);
+    this.animate.start();
   };
 
   cancel() {
-    return window.cancelAnimationFrame(this.animationFrameId);
+    this.animate.stop();
   }
 }
 
