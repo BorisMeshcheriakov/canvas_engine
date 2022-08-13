@@ -1,29 +1,12 @@
 import Cursor from "./cursor";
-import Ball from "./ball";
 import Rectangle from "./rectangle";
 
 class Scene {
   private ctx: CanvasRenderingContext2D;
-  private balls;
-  private mouseX;
-  private mouseY;
-  private targetX;
-  private targetY;
-  private playerX;
-  private playerY;
-  private player;
   private cursor;
 
   constructor(ctx: CanvasRenderingContext2D) {
     this.ctx = ctx;
-    this.balls = [] as Ball[];
-    this.mouseX = 0;
-    this.mouseY = 0;
-    this.targetX = 0;
-    this.targetY = 0;
-    this.playerX = 100;
-    this.playerY = 100;
-    this.player = new Ball(this.ctx, this.playerX, this.playerY);
     this.cursor = new Cursor(this.ctx);
   }
 
@@ -46,9 +29,6 @@ class Scene {
     }
 
     this.cursor.drawCursorPosition();
-    // const mouseBall = new Ball(this.ctx, this.mouseX, this.mouseY);
-    // mouseBall.draw();
-    // this.player.draw();
   }
 }
 
