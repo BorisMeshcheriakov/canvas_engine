@@ -5,8 +5,9 @@ class Input {
     this.canvas = canvas;
   }
 
-  createClickListener(callback: (e: MouseEvent) => void) {
+  appendListenes(callback: (e: MouseEvent) => void) {
     this.canvas.addEventListener("click", (e) => callback(e));
+    this.canvas.addEventListener("mousemove", (e) => callback(e));
   }
 }
 

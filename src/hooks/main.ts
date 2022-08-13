@@ -1,5 +1,6 @@
 import AnimationFrame from "./fps";
 import Scene from "./scene";
+import Input from "./input";
 
 class App {
   private canvas: HTMLCanvasElement;
@@ -7,6 +8,7 @@ class App {
   public animationFrameId: number;
   private scene;
   private animate;
+  private input;
 
   constructor(appCanvas: HTMLCanvasElement) {
     let canvas = appCanvas;
@@ -15,6 +17,7 @@ class App {
     this.canvas = canvas;
     this.context = context;
     this.animationFrameId = 0;
+    this.input = new Input(canvas);
     this.scene = new Scene(this.context);
     this.animate = new AnimationFrame(this.context, 60, this.draw);
   }
@@ -34,8 +37,7 @@ class App {
   };
 
   public render = () => {
-    this.canvas.addEventListener("click", this.scene.onClick);
-    this.canvas.addEventListener("mousemove", this.scene.onMove);
+    this.input.appendListenes(this.scene.onInput);
     this.animate.start();
   };
 
