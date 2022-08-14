@@ -38,6 +38,7 @@ class App {
 
   public render = () => {
     this.input.appendListenes(this.scene.onInput);
+    this.scene.createMap();
     this.animate.start();
   };
 

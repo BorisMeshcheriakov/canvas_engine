@@ -7,8 +7,8 @@ const Canvas = () => {
     <canvas
       style={{ border: "1px solid black" }}
       ref={ref}
-      width={1366}
-      height={768}
+      width={800}
+      height={800}
     ></canvas>
   );
 };
